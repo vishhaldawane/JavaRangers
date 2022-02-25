@@ -1,5 +1,4 @@
 package com.company;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -7,22 +6,13 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 /*
-Oracle - number for int values
-         varchar2(20) for "String"
-
-HSQLDB - int for int values
-         varchar(20) for "String"
-
- MSSQL - int for int values
-         nvarchar(20) for "String"
+select  department0_.deptno as deptno1_0_0_,
+        department0_.deptloc as deptloc2_0_0_,
+        department0_.deptname as deptname3_0_0_
+        from DEPT_FC department0_
+        where department0_.deptno=?
  */
-public class Main { //@OneToMany - One Dept -> 3 emps -> 5 address - 3 food - 1 passport
-//GirCow theCow = FarmHouse.getCirCow("brown"); -- cow_info.xml
-    //Milk milk = theCow.getMilk();
-
-    //milk.checkTemperature();
-        //milk.coagulate(); //utilizing the milk -
-    //milk.completeCoagulation();
+public class DeleteRecordTest {
 
     public static void main(String[] args) {
         EntityManagerFactory emf =
@@ -31,30 +21,22 @@ public class Main { //@OneToMany - One Dept -> 3 emps -> 5 address - 3 food - 1 
 
         EntityManager em = emf.createEntityManager(); // same like milk
         EntityTransaction et = em.getTransaction();
-//Department + Department.hbm.xml <-- file   AGAINST Annotated Pojo
-//Nepali Thali
 
-            Department dept = new Department(); //local empty object
-            dept.setDepartmentNumber(180); //fill up the object
-            dept.setDepartmentName("Holiday"); //fill up the object
-            dept.setDepartmentLocation("Kashmir"); //fill up the object
+        et.begin();
+        System.out.println("Transaction started...");
+        //ATTACHED object - [ ATTACHED WITH THE ORM/DATABASE ]
+        Department dept = em.find(Department.class,40); //this will fire the SELECT query
 
-            Department dept2 = new Department(); //local empty object
-            dept2.setDepartmentNumber(160); //fill up the object
-            dept2.setDepartmentName("Fun"); //fill up the object
-            dept2.setDepartmentLocation("Kathmandu");
+                System.out.println("current DEPT number   : "+dept.getDepartmentNumber());
+                System.out.println("current DEPT name     : "+dept.getDepartmentName());
+                System.out.println("current DEPT location : "+dept.getDepartmentLocation());
 
-            Department dept3 = new Department(); //local empty object
-            dept3.setDepartmentNumber(170); //fill up the object
-            dept3.setDepartmentName("Funny"); //fill up the object
-            dept3.setDepartmentLocation("India");
+                em.remove(dept); //Fires the DELETE query for this CHANGED  object
 
 
-            et.begin();
-                em.persist(dept); //milk.coagulate()
-                em.persist(dept2);
-                em.persist(dept3);
-            et.commit();
+        et.commit();
+        System.out.println("Transaction over...");
+
     }
 }
 
@@ -208,58 +190,11 @@ Persistence   = storing the java object on the database table in the form of a R
 BASIC structure of your project
 
 
-
-xml - extensible markup language
-
-love.txt
---------
-hi Reeta
-I love you
-
-lets meet for a coffee
-
-I miss you
-
-
-
-
-
-regs
-Vishhal
-----------
-
-love.xml
--------------
-<?xml...>
-
-<love-letter>
- <salutation> Hi Reeta </salutation>
-
- <main-message>
-    I miss you
- </main-message>
-
- <theme>
-    i love you
- </them>
-
- <meet>
-    lets meet for a coffee
- </meet>
-
- <closure>
-    always yours....
-    Vishhal
- </closure>
-
-</love-letter>
-
-Developer   <----- META-INF/persistence.xml------> ORM Framework
                         YourProject
                             |
                    -------------------------------------------------------------
                    |                    |               |               |
-               1. libraries         3   Pojo          2  META-INF      4  Main
+                 libraries            Pojo              META-INF        Main
                  |                      |               |                   Persistence, EntityManagerFactory
           already downloaded        Department          persistence.xml     EntityManager, EntityTransaction
           from hibernate.org        Employee            |                   persist();find();merge();delete()
@@ -270,32 +205,6 @@ Developer   <----- META-INF/persistence.xml------> ORM Framework
                    (configure these pojos with proper annotations )
 
                    @ <-- annotation begins with this symbol
-
-
-.jar file = collection to hold multiple .class files...
-
-
-1) to create your own jar file
-        jar -cvf flowers.jar  Rose.class Lotus.class Lily.class
-
-    -c means create a jar file
-    -v  verbose - progress to see
-    -f  file name to specify
-
-
-2) to see the content of your jar file
-    jar -tvf flowers.jar
-
-    -t means table of contents
-
- 3) to extract all the classes from the jar file
-
-    jar -xvf flowers.jar
-
- 4) type ls from mac os
-        or
-        dir from windows os to see the files of that folder
-
 
 
                    @OneToOne

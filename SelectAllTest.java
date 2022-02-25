@@ -1,10 +1,7 @@
 package com.company;
-import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.List;
 
 /*
 Oracle - number for int values
@@ -16,7 +13,7 @@ HSQLDB - int for int values
  MSSQL - int for int values
          nvarchar(20) for "String"
  */
-public class Main { //@OneToMany - One Dept -> 3 emps -> 5 address - 3 food - 1 passport
+public class SelectAllTest { //@OneToMany - One Dept -> 3 emps -> 5 address - 3 food - 1 passport
 //GirCow theCow = FarmHouse.getCirCow("brown"); -- cow_info.xml
     //Milk milk = theCow.getMilk();
 
@@ -30,31 +27,17 @@ public class Main { //@OneToMany - One Dept -> 3 emps -> 5 address - 3 food - 1 
             System.out.println("Entity Manager Factory : "+emf);//same like theCow
 
         EntityManager em = emf.createEntityManager(); // same like milk
-        EntityTransaction et = em.getTransaction();
-//Department + Department.hbm.xml <-- file   AGAINST Annotated Pojo
-//Nepali Thali
 
-            Department dept = new Department(); //local empty object
-            dept.setDepartmentNumber(180); //fill up the object
-            dept.setDepartmentName("Holiday"); //fill up the object
-            dept.setDepartmentLocation("Kashmir"); //fill up the object
+        Query query = em.createQuery("from Department"); // observe this query, its is not a standard SQL query, it is HQL/JPQL
 
-            Department dept2 = new Department(); //local empty object
-            dept2.setDepartmentNumber(160); //fill up the object
-            dept2.setDepartmentName("Fun"); //fill up the object
-            dept2.setDepartmentLocation("Kathmandu");
+        List<Department> deptList= query.getResultList();//extract all the rows
 
-            Department dept3 = new Department(); //local empty object
-            dept3.setDepartmentNumber(170); //fill up the object
-            dept3.setDepartmentName("Funny"); //fill up the object
-            dept3.setDepartmentLocation("India");
-
-
-            et.begin();
-                em.persist(dept); //milk.coagulate()
-                em.persist(dept2);
-                em.persist(dept3);
-            et.commit();
+        for(Department dept  : deptList) {
+            System.out.println("DEPT number   : "+dept.getDepartmentNumber());
+            System.out.println("DEPT name     : "+dept.getDepartmentName());
+            System.out.println("DEPT location : "+dept.getDepartmentLocation());
+            System.out.println("---------------");
+        }
     }
 }
 
