@@ -1,7 +1,25 @@
 package com.company;
 
 import java.sql.*;
+/*
 
+create table myemp
+(
+  empno int,
+  empname varchar(20),
+  empjob varchar(20),
+  hiredate date,
+  empsal int
+)
+insert into myemp values (111,'jack','clerk','2021-1-12',5000);
+insert into myemp values (112,'jane','manager','2021-2-12',5500);
+insert into myemp values (113,'jill','manager','2021-3-12',5700);
+insert into myemp values (114,'janet','president','2021-4-12',5200);
+insert into myemp values (115,'julie','accountant','2021-5-12',5700);
+
+
+
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -21,16 +39,16 @@ public class Main {
             System.out.println("Statement is created....");
 
             System.out.println("tyring to run the query..and acquiring the result...");
-            ResultSet result = statement.executeQuery("SELECT * FROM MYDEPT"); //QUERY CAN BE IN ANY CASE
+            ResultSet result = statement.executeQuery("SELECT * FROM MYdept"); //QUERY CAN BE IN ANY CASE
             System.out.println("Got the result...now processing it...");
 
             while(result.next()) { //iterate each row of the table
                 int x = result.getInt(1); // this is the first integer column of your table
                 String y = result.getString(2);  //2nd column of string type
                 String z = result.getString(3); //3rd column of string type
-                System.out.println("Department number   : "+x);
-                System.out.println("Department Name     :"+y);
-                System.out.println("Department Location : "+z);
+                System.out.println(" number   : "+x);
+                System.out.println(" string   : "+y);
+                System.out.println(" string   : "+z);
                 System.out.println("---------------------------");
             }
 
