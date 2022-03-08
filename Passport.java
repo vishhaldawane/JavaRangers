@@ -1,68 +1,80 @@
-package com.company.onetoone;
+package com.java.one2one;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+/*
+  PK										  FK(unique)
+  passportId  issuedBy  issuedDate expiryDate PERSONID
+   123		  Govt.Ind  2021-10-12 2032-10-12 1
+   334		  Govt.Ind  2021-12-07 2032-12-07 2	
+   556		  Govt.Ind  2021-12-07 2032-12-07 2
+ */
 @Entity
-@Table(name="passport12")
+@Table(name="passport1")
 public class Passport {
 
-    @Id
-    @Column(name="passportno") //1
-    int passportNumber;
+	@Id
+	@GeneratedValue
+	private int passportId; //1
+	
+	private String issuedBy; //2
+	private LocalDate issueDate; //3
+	private LocalDate expiryDate; //4
+	
+	@OneToOne
+	private Person person;
+	
+	
+	
+	public Person getPerson() {
+		return person;
+	}
 
-    @Column(name="issuedby") //2
-    String passportIssuedBy;
+	public void setPerson(Person person) {
+		this.person = person;
+	}
 
-    @Column(name="issuedon") //3
-    LocalDate passportIssuedOn;
+	public Passport() {
+		// TODO Auto-generated constructor stub
+		System.out.println("Passport()..");
+	}
 
-    @Column(name="expiryon") //4
-    LocalDate passportExpiryOn;
+	public int getPassportId() {
+		return passportId;
+	}
 
-    //4th column below, is a REAL column
-    @OneToOne
-    @JoinColumn(name="eno",unique = true) //5
-    Employee employee;
+	public void setPassportId(int passportId) {
+		this.passportId = passportId;
+	}
 
-    public int getPassportNumber() {
-        return passportNumber;
-    }
+	public String getIssuedBy() {
+		return issuedBy;
+	}
 
-    public void setPassportNumber(int passportNumber) {
-        this.passportNumber = passportNumber;
-    }
+	public void setIssuedBy(String issuedBy) {
+		this.issuedBy = issuedBy;
+	}
 
-    public String getPassportIssuedBy() {
-        return passportIssuedBy;
-    }
+	public LocalDate getIssueDate() {
+		return issueDate;
+	}
 
-    public void setPassportIssuedBy(String passportIssuedBy) {
-        this.passportIssuedBy = passportIssuedBy;
-    }
+	public void setIssueDate(LocalDate issueDate) {
+		this.issueDate = issueDate;
+	}
 
-    public LocalDate getPassportIssuedOn() {
-        return passportIssuedOn;
-    }
+	public LocalDate getExpiryDate() {
+		return expiryDate;
+	}
 
-    public void setPassportIssuedOn(LocalDate passportIssuedOn) {
-        this.passportIssuedOn = passportIssuedOn;
-    }
+	public void setExpiryDate(LocalDate expiryDate) {
+		this.expiryDate = expiryDate;
+	}
 
-    public LocalDate getPassportExpiryOn() {
-        return passportExpiryOn;
-    }
-
-    public void setPassportExpiryOn(LocalDate passportExpiryOn) {
-        this.passportExpiryOn = passportExpiryOn;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
+	
 }
-
