@@ -1,55 +1,100 @@
-package com.company.onetoone;
+package com.java.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="emp12")
+@Table(name="EMPLOYEE10")
 public class Employee {
 
-    @Id
-    @Column(name="empno")
-    int employeeNumber;
+	
+	@Id
+	private int empNumber;
+	
+	private String empName;
+	private Float empSalary;
+	
+	@ManyToOne
+	@JoinColumn(name="deptno") // FK for emp table
+	private Department dept;
+	
+	//OneToMany
+	//Set<BankAccount> bank
+	
+	public Employee(int empNumber, String empName, Float empSalary, Department dept) {
+		super();
+		this.empNumber = empNumber;
+		this.empName = empName;
+		this.empSalary = empSalary;
+		this.dept = dept;
+	}
 
-    @Column(name="ename")
-    String employeeName;
 
-    @Column(name="sal")
-    float employeeSalary;
+	public Employee() {
+		// TODO Auto-generated constructor stub
+	}
 
-    //4th column below, is not a real column
-    //it is just an association mapping
-    @OneToOne(mappedBy = "employee")
-    Passport passport;
 
-    public int getEmployeeNumber() {
-        return employeeNumber;
-    }
+	public int getEmpNumber() {
+		return empNumber;
+	}
 
-    public void setEmployeeNumber(int employeeNumber) {
-        this.employeeNumber = employeeNumber;
-    }
 
-    public String getEmployeeName() {
-        return employeeName;
-    }
 
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
-    }
 
-    public float getEmployeeSalary() {
-        return employeeSalary;
-    }
+	public void setEmpNumber(int empNumber) {
+		this.empNumber = empNumber;
+	}
 
-    public void setEmployeeSalary(float employeeSalary) {
-        this.employeeSalary = employeeSalary;
-    }
 
-    public Passport getPassport() {
-        return passport;
-    }
 
-    public void setPassport(Passport passport) {
-        this.passport = passport;
-    }
+
+	public String getEmpName() {
+		return empName;
+	}
+
+
+
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+
+
+
+	public Float getEmpSalary() {
+		return empSalary;
+	}
+
+
+
+
+	public void setEmpSalary(Float empSalary) {
+		this.empSalary = empSalary;
+	}
+
+
+
+//u have to suppress this methods output for the UI
+	
+	//@JsonIgnore
+	public Department getDept() {
+		return dept;
+	}
+
+
+
+
+	public void setDept(Department dept) {
+		this.dept = dept;
+	}
+
+
+
+
+
 }
