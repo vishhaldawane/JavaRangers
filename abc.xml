@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+
+    <bean id="mySavings" class="com.company.SavingsAccount">
+
+    </bean>
+
+    <bean id="myPiston" class="com.company.Piston">
+        <constructor-arg  index="0"  type="java.lang.String" value="Digital Spark">
+        </constructor-arg>
+
+        <constructor-arg  index="1"  type="int" value="6">
+        </constructor-arg>
+    </bean>
+
+    <bean id="myEngine" class="com.company.Engine">
+        <constructor-arg index="0" type="com.company.Piston" ref="myPiston">
+        </constructor-arg>
+
+        <constructor-arg index="1" type="java.lang.String" value="Petrol">
+        </constructor-arg>
+
+        <constructor-arg index="2" type="int" value="2500">
+        </constructor-arg>
+    </bean>
+
+    <bean id="myCar" class="com.company.Car">
+
+        <constructor-arg index="0" type="com.company.Engine" ref="myEngine">
+        </constructor-arg>
+
+        <constructor-arg index="1" type="java.lang.String" value="Skoda">
+        </constructor-arg>
+
+
+    </bean>
+</beans>

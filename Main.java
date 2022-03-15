@@ -1,42 +1,22 @@
 package com.company;
 
+import org.springframework.aop.scope.ScopedProxyUtils;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        Piston piston = new Piston("Digital Spark",2);
-        Engine theEngine = new Engine(piston,"Diesel",1500);
-	    Car myCar = new Car(theEngine,"Skoda"); // the Engine object is passed here as an argument
-	    myCar.move();
+        //SavingsAccount savingsAccount = new SavingsAccount();
 
-	   // NepaliThali np = Hotel.getNepaliThali();
+        System.out.println("Trying to create spring container..");
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("abc.xml");
+        System.out.println("Spring container is ready....");
 
-	    System.out.println("-----------");
+        Car theCar = (Car) ctx.getBean("myCar");
+        theCar.move();
 
-        Piston piston2 = new Piston("Twin Spark",4);
-        Engine theEngine2= new Engine(piston2,"Petrol",2000);
-        Car myCar2 = new Car(theEngine2,"Merc");
-        myCar2.move();
-
-        System.out.println("-----------");
-
-        Piston piston3 = new Piston("Digital Twin Spark",6);
-        Engine theEngine3= new Engine(piston3,"CNG",4000);
-        Car myCar3 = new Car(theEngine3,"Bugati");
-        myCar3.move();
-
-        System.out.println("--------------");
-
-        VehicleFactory vehicleFactory = new VehicleFactory();
-        Vehicle myVehicle = vehicleFactory.createVehicle("Maruti","Hybrid",3300,"DigiTwinSpark",6);
-        myVehicle.move();
-
-
-        //DI - Dependency Injection  | Inversion Of Control
-
-    //    SpringFactory springFactory = new SpringFactory("abc.xml"); //abc.xml ->preconfigured objects -> Car, Engine, Piston using -> "Maruti" ,"Hybrid",3300,"DigiTwinSpark",6
-    //    Vehicle myVehicle = springFactory.getBean("Maruti");
-    //    myVehicle.move();
     }
 }
 /*
@@ -69,16 +49,28 @@ abc.xml --> java objects described in XML style
 
 
  */
+
+class SavingsAccount
+{
+    SavingsAccount() {
+        System.out.println("SavingsAccount() ctor....");
+    }
+    void withdraw() {
+        System.out.println("Withdrawing....");
+    }
+}
 interface Vehicle //Vehicle.java
 {
     void move(); //core functionality of any vehicle
 }
+
 class Car implements Vehicle //isA  Car.java
 {
     String modelName;
     Engine theEngine; //hasA - just a reference...it is NULL, not an object creation
 
     Car(Engine theEngine, String modelName) {
+        System.out.println("Car(Engine,String) constructed...");
         this.theEngine = theEngine; // it is initialized...
         this.modelName = modelName;
     }
@@ -97,6 +89,7 @@ class Engine //Engine.java
     int engineCapacity;
 
     Engine(Piston thePiston, String engineType, int engineCapacity) {
+        System.out.println("Engine(Piston,String,int) constructed...");
         this.thePiston = thePiston;
         this.engineType = engineType;
         this.engineCapacity = engineCapacity;
@@ -107,11 +100,24 @@ class Engine //Engine.java
     }
 }
 
+//intellij ultimate
+
 class Piston {//Piston.java
     String pistonType;
     int cylinders;
 
+//    Piston() {
+//        System.out.println("Piston()...no argument ctor...");
+//    }
+
+//    Piston(String pistonType) {
+//        System.out.println("Piston(String)... arguments ctor...");
+//        this.pistonType = pistonType;
+//
+//    }
+
     Piston(String pistonType, int cylinders) {
+        System.out.println("Piston(String,int)... constructed......");
         this.pistonType = pistonType;
         this.cylinders=cylinders;
     }
@@ -121,7 +127,7 @@ class Piston {//Piston.java
     }
 }
 
-
+/*
 class VehicleFactory
 {
     Vehicle createVehicle(String carModel, String engineType,int engineCapacity, String pistonType, int numberOfCylinders)
@@ -131,4 +137,4 @@ class VehicleFactory
         Car theCar = new Car(theEngine,carModel);
         return theCar;
     }
-}
+}*/
