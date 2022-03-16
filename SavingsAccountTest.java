@@ -1,74 +1,55 @@
 package com.company;
 
-//who
-//where when
-//why what how
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Scanner;
 
 public class SavingsAccountTest {
     public static void main(String[] args) {
+        System.out.println("Trying to create spring container..");
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("savings.xml");
+        System.out.println("Spring container is ready... with savings.xml settings....");
 
-        double openingBalance = 50000; //test data 1
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter Account Number : ");
+        int accNum = scan.nextInt();
 
-        SavingsAccount savingsAccount = new SavingsAccount(101,"Jack",openingBalance); //BL
+        SavingsAccount savingsAccount = (SavingsAccount) ctx.getBean("mySavings");
+        savingsAccount.setAccountNumber(accNum);
+        double balance = savingsAccount.getAccountBalance();
 
-        double currentBalanceAfterOpening = savingsAccount.getAccountBalance(); //BL test data 2
-        //now the test condition1
-
-        if(openingBalance == currentBalanceAfterOpening) {
-            System.out.println("1. Test Passed - opening balance is correct...");
-        }
-        else {
-            System.out.println("1. Test Failed - opening balance is NOT correct...");
-            System.exit(1); //exit 1 means, first level of exit
-        }
-
-        System.out.println("--------------------");
-
-        //50000
-        double currentBalanceBeforeWithdraw = savingsAccount.getAccountBalance();
-        double amountToWithdraw=500;
-        double balanceExpectedAfterWithdraw = currentBalanceBeforeWithdraw - amountToWithdraw;
-
-        //500
-        savingsAccount.withdraw(amountToWithdraw);//BL
-
-        //49500
-        double actualBalanceAfterWithdraw = savingsAccount.getAccountBalance();//BL  //test data 3
-
-//Assertions
-
-        //now the test condition2
-        if(balanceExpectedAfterWithdraw == actualBalanceAfterWithdraw) {
-            System.out.println("2. Test Passed - withdraw is correct...");
-        }
-        else {
-            System.out.println("2. Test failed - withdraw is incorrect...");
-            System.exit(2); //exit 1 means, first level of exit
-        }
-        System.out.println("--------------------");
-        //50000
-        double currentBalanceBeforeDeposit = savingsAccount.getAccountBalance();
-        double amountToDeposit=9000;
-        double balanceExpectedAfterDeposit = currentBalanceBeforeDeposit + amountToDeposit;
-
-        //500
-        savingsAccount.deposit(amountToDeposit);//BL
-
-        //49500
-        double actualBalanceAfterDeposit = savingsAccount.getAccountBalance();//BL  //test data 3
+        System.out.println("Balance "+balance);
 
 
-        //now the test condition2
-        if(actualBalanceAfterDeposit == balanceExpectedAfterDeposit) {
-            System.out.println("3. Test Passed - deposit is correct...");
-        }
-        else {
-            System.out.println("3. Test failed - deposit is incorrect...");
-            System.exit(3); //exit 1 means, first level of exit
-        }
 
-
-        System.out.println("All test cases PASSED!!!!");
-        //System.exit(0); //SUCCESS - maze is over...
     }
+
 }
+/*
+
+SavingsAccount savingsAccount2 = (SavingsAccount) ctx.getBean("mySavings");
+        SavingsAccount savingsAccount3 = (SavingsAccount) ctx.getBean("mySavings");
+
+        System.out.println("savingsAccount1 :"+savingsAccount1.hashCode());
+        System.out.println("savingsAccount2 :"+savingsAccount2.hashCode());
+        System.out.println("savingsAccount3 :"+savingsAccount3.hashCode());
+
+        savingsAccount1.setAccountNumber(123);
+        savingsAccount1.setAccountHolderName("Arun");
+        savingsAccount1.setAccountBalance(50000);
+
+        savingsAccount2.setAccountNumber(554);
+        savingsAccount2.setAccountHolderName("Ramji");
+        savingsAccount2.setAccountBalance(60000);
+
+        savingsAccount3.setAccountNumber(778);
+        savingsAccount3.setAccountHolderName("Ashish");
+        savingsAccount3.setAccountBalance(70000);
+
+        System.out.println("savingsAccount1 : "+savingsAccount1);
+        System.out.println("savingsAccount2 : "+savingsAccount2);
+ */
