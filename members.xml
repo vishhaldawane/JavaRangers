@@ -26,15 +26,17 @@
 -->
 
 
+<!--   2 Member anyMember = new Member();-->
 <!--    Car-->
-    <bean id="mySavings" class="com.company.SavingsAccount" scope="singleton">
+    <bean id="anyMember" class="com.company.Member" scope="singleton">
 <!--        <property name="accountNumber" value="105"></property>-->
-        <property name="myDataSource" ref="mydb"></property>
+        <property name="dataSource" ref="ds"></property>
+<!--       3 anyMember.setDataSource(ds); conversion of the above line -->
     </bean>
 
-
 <!--    Engine-->
-    <bean id="mydb" class="org.springframework.jdbc.datasource.DriverManagerDataSource" scope="singleton">
+<!--    1 DriverManagerDataSource ds = new DriverManagerDataSource();-->
+    <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource" scope="singleton">
         <property name="driverClassName" value="org.hsqldb.jdbc.JDBCDriver"></property>
         <property name="url" value="jdbc:hsqldb:hsql://localhost/mydb"></property>
         <property name="username" value="SA"></property>
