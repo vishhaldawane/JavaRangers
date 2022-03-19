@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       xmlns:context="http://www.springframework.org/schema/context">
+    <!-- bean definitions here -->
+
+    <context:component-scan base-package="com.company.myflights"/>
+
+    <bean id="myds" class="org.springframework.jdbc.datasource.DriverManagerDataSource" scope="singleton">
+        <property name="driverClassName" value="org.hsqldb.jdbc.JDBCDriver"></property>
+        <property name="url" value="jdbc:hsqldb:hsql://localhost/mydb"></property>
+        <property name="username" value="SA"></property>
+        <property name="password" value=""></property>
+    </bean>
+
+</beans>

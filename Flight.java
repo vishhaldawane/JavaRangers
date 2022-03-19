@@ -1,24 +1,30 @@
-package com.company;
+package com.company.myflights;
 
 import org.springframework.stereotype.Component;
 
-@Component("fliObj")
-public class Flight {
+/*
 
-    String flightNumber;
-    String flightName;
-    String flightSource;
-    String flightDestination;
+CREATE TABLE FLIGHTS
+(
+  FLIGHT_NUMBER INT PRIMARY KEY,
+  FLIGHT_NAME VARCHAR(20),
+  FLIGHT_SOURCE VARCHAR(20),
+  FLIGHT_DESTINATION VARCHAR(20)
+)
 
-    Flight() {
-        System.out.println("Flight constructor....");
-    }
+ */
+@Component
+public class Flight { //1. POJO
+    private int flightNumber;
+    private String flightName;
+    private String flightSource;
+    private String flightDestination;
 
-    public String getFlightNumber() {
+    public int getFlightNumber() {
         return flightNumber;
     }
 
-    public void setFlightNumber(String flightNumber) {
+    public void setFlightNumber(int flightNumber) {
         this.flightNumber = flightNumber;
     }
 
@@ -45,26 +51,14 @@ public class Flight {
     public void setFlightDestination(String flightDestination) {
         this.flightDestination = flightDestination;
     }
-}
 
-
-@Component("fightFli")
-class FighterFlight {
-    public FighterFlight() {
-        System.out.println("FighterFlight()  ctor...");
-    }
-}
-
-@Component("commFli")
-class CommercialFlight {
-    public CommercialFlight() {
-        System.out.println("CommercialFlight()  ctor...");
-    }
-}
-
-@Component("cargFli")
-class CargoFlight{
-    public CargoFlight() {
-        System.out.println("CargoFlight()  ctor...");
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "flightNumber=" + flightNumber +
+                ", flightName='" + flightName + '\'' +
+                ", flightSource='" + flightSource + '\'' +
+                ", flightDestination='" + flightDestination + '\'' +
+                '}';
     }
 }
