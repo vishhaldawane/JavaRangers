@@ -11,24 +11,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations="classpath:myflights.xml")
-public class FlightTest {
+@ContextConfiguration(locations="classpath:myflights-jpa-config.xml")
+public class FlightTest2 {
 
     @Autowired
-    @Qualifier("jill")
+    @Qualifier("jack")
     FlightRepository flightRepository; // we are expecting from spring to get the object of this
                             //spring identifies the FlightRepositoryImpl
                             // as the implementation of FlightRepository
 
     @Autowired
-    Flight flightObject; // we need not write -> new Flight()
+    Flight flightObject; // ANNOTATED POJO
 
     @Test
     public void addFlightTest() {
-        flightObject.setFlightNumber(106);
-        flightObject.setFlightName("BA");
-        flightObject.setFlightSource("MUMBAI");
-        flightObject.setFlightDestination("LONDON");
+        flightObject.setFlightNumber(107);
+        flightObject.setFlightName("Lufthansa");
+        flightObject.setFlightSource("New Jersey");
+        flightObject.setFlightDestination("GERMANY");
         flightRepository.insertFlight(flightObject);
     }
     @Test

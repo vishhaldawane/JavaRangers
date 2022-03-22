@@ -2,6 +2,11 @@ package com.company.myflights;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /*
 
 CREATE TABLE FLIGHTS
@@ -12,12 +17,29 @@ CREATE TABLE FLIGHTS
   FLIGHT_DESTINATION VARCHAR(20)
 )
 
+https://github.com/vishhaldawane/JavaRangers/blob/main/Flight.java
+https://github.com/vishhaldawane/JavaRangers/blob/main/FlightRepository.java
+https://github.com/vishhaldawane/JavaRangers/blob/main/FlightRepositoryImpl.java
+https://github.com/vishhaldawane/JavaRangers/blob/main/FlightTest.java
+https://github.com/vishhaldawane/JavaRangers/blob/main/myflights.xml
+
  */
 @Component
+@Entity
+@Table(name="flights")
 public class Flight { //1. POJO
+
+    @Id
+    @Column(name="flight_number")
     private int flightNumber;
+
+    @Column(name="flight_name")
     private String flightName;
+
+    @Column(name="flight_source")
     private String flightSource;
+
+    @Column(name="flight_destination")
     private String flightDestination;
 
     public int getFlightNumber() {

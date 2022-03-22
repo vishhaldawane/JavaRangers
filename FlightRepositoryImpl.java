@@ -10,11 +10,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository  // spring with JDBC using Repository Implementation
+@Repository("jill")  // spring with JDBC using Repository Implementation
 public class FlightRepositoryImpl implements FlightRepository {
 
     //@Autowired
-    //@Qualifier("myds") //expecting spring to find the object of DataSource implementation, ie DriverManagerDataSource's object
+     //expecting spring to find the object of DataSource implementation, ie DriverManagerDataSource's object
     DataSource dataSource; //WITH ORM U NEED EntityManager
 
     @Autowired
@@ -23,7 +23,8 @@ public class FlightRepositoryImpl implements FlightRepository {
     Connection conn;
 
     @Autowired
-    FlightRepositoryImpl(@Qualifier("myds") DataSource dataSource) {
+    public FlightRepositoryImpl(@Qualifier("myds") DataSource dataSource) {
+        System.out.println("FlightRepositoryImpl() Qualifier -> ds (jill) way...");
         this.dataSource = dataSource;
         try {
             this.conn = dataSource.getConnection();
