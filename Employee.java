@@ -1,100 +1,57 @@
 package com.java.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="EMPLOYEE10")
-public class Employee {
+import org.springframework.stereotype.Component;
 
+@Component
+@Entity
+@Table(name="EMPLOYEE")
+public class Employee {
 	
 	@Id
-	private int empNumber;
+	@Column(name="empno")
+	private int employeeNumber;
+
+	@Column(name="empname")
+	private String employeeName;
 	
-	private String empName;
-	private Float empSalary;
+	@Column(name="salary")
+	private int employeeSalary;
 	
-	@ManyToOne
-	@JoinColumn(name="deptno") // FK for emp table
-	private Department dept;
+	//@OneToOne
+	//Passport passport =new Passport();
 	
-	//OneToMany
-	//Set<BankAccount> bank
+
+	//@OneToMany
+	//List<Customer> cust= new ArrayList<Customer>();
 	
-	public Employee(int empNumber, String empName, Float empSalary, Department dept) {
-		super();
-		this.empNumber = empNumber;
-		this.empName = empName;
-		this.empSalary = empSalary;
-		this.dept = dept;
+	public int getEmployeeNumber() {
+		return employeeNumber;
 	}
 
-
-	public Employee() {
-		// TODO Auto-generated constructor stub
+	public void setEmployeeNumber(int employeeNumber) {
+		this.employeeNumber = employeeNumber;
 	}
 
-
-	public int getEmpNumber() {
-		return empNumber;
+	public String getEmployeeName() {
+		return employeeName;
 	}
 
-
-
-
-	public void setEmpNumber(int empNumber) {
-		this.empNumber = empNumber;
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
 	}
 
-
-
-
-	public String getEmpName() {
-		return empName;
+	public int getEmployeeSalary() {
+		return employeeSalary;
 	}
 
-
-
-
-	public void setEmpName(String empName) {
-		this.empName = empName;
+	public void setEmployeeSalary(int employeeSalary) {
+		this.employeeSalary = employeeSalary;
 	}
-
-
-
-
-	public Float getEmpSalary() {
-		return empSalary;
-	}
-
-
-
-
-	public void setEmpSalary(Float empSalary) {
-		this.empSalary = empSalary;
-	}
-
-
-
-//u have to suppress this methods output for the UI
 	
-	//@JsonIgnore
-	public Department getDept() {
-		return dept;
-	}
-
-
-
-
-	public void setDept(Department dept) {
-		this.dept = dept;
-	}
-
-
-
-
-
+	
 }
